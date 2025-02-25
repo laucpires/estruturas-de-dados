@@ -1,5 +1,6 @@
 #include <iostream>
 #include <locale.h>
+#include <stdexcept>
 #include "../include/doubly_linked_list.hpp"
 
 using namespace std;
@@ -403,7 +404,7 @@ bool DoublyLinkedList<T>::contains(const T& item) const {
 template <class T>
 T& DoublyLinkedList<T>::operator[](size_t index) {
     if (index >= size()) {
-        throw std::out_of_range("Índice inválido.");
+        throw out_of_range("Índice inválido.");
     }
 
     auto it = begin();
@@ -420,7 +421,7 @@ T& DoublyLinkedList<T>::operator[](size_t index) {
 template <class T>
 const T& DoublyLinkedList<T>::operator[](size_t index) const {
     if (index >= size()) {
-        throw std::out_of_range("Índice inválido.");
+        throw out_of_range("Índice inválido.");
     }
 
     return *(begin() + index);
