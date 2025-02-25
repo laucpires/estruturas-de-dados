@@ -47,12 +47,12 @@ void LinkedList<T>::insert(size_t index, const T &value) {
     
     for (size_t i = 0; i < index && atual != nullptr; i++) {
         prev = atual;
-        atual = atual->prox;
+        atual = atual->next;
     }
     
     Node* new_node = new Node(value);
-    new_node->prox = atual;
-    prev->prox = new_node;
+    new_node->next = atual;
+    prev->next = new_node;
     _size++;
 }
 
@@ -62,7 +62,7 @@ void LinkedList<T>::print() const {
     auto atual = head;
     while (atual != nullptr) {
         cout << atual->value << " -> ";
-        atual = atual->prox;
+        atual = atual->next;
     }
     cout << "NULL" << endl;
 }
@@ -72,7 +72,7 @@ void LinkedList<T>::print() const {
 template <class T>
 void LinkedList<T>::push_front(const T& value) {
     Node* new_node = new Node(value);
-    new_node->prox = head;
+    new_node->next = head;
     head = new_node;
     _size++;
 }
@@ -86,7 +86,7 @@ LinkedList<T>& LinkedList<T>::operator=(const LinkedList &list) {
         Node* atual = list.head;
         while (atual != nullptr) {
             push_back(atual->value); // Adiciona os elementos diretamente
-            atual = atual->prox;
+            atual = atual->next;
         }
     }
     return *this;
@@ -100,7 +100,7 @@ void LinkedList<T>::pop_front() {
     }
 
     Node* temp = head;
-    head = head->prox;
+    head = head->next;
 
     delete temp;
     _size--;
@@ -131,10 +131,10 @@ void LinkedList<T>::remove(size_t index) {
 
     for (size_t i = 0; i < index; i++) {
         prev = atual;
-        atual = atual->prox;
+        atual = atual->next;
     }
 
-    prev->prox = atual->prox;
+    prev->next = atual->next;
     delete atual;
     _size--;
 }
@@ -158,7 +158,7 @@ T& LinkedList<T>::find(const T &item) {
         if (atual->value == item) {
             return atual->value; // Retorna uma referência ao valor encontrado
         }
-        atual = atual->prox; // Avança para o próximo nó
+        atual = atual->next; // Avança para o próximo nó
     }
 
     throw out_of_range("Elemento não encontrado.");
@@ -174,7 +174,7 @@ const T& LinkedList<T>::find(const T &item) const {
             return atual->value;
         }
 
-        atual = atual->prox;
+        atual = atual->next;
     }
     throw out_of_range("Elemento não encontrado.");
 }
@@ -188,7 +188,7 @@ bool LinkedList<T>::contains(const T &item) const {
             return true;
         }
 
-        atual = atual->prox;
+        atual = atual->next;
     }
     return false;
 }
@@ -201,7 +201,7 @@ T& LinkedList<T>::operator[](size_t index) {
     }
     Node* atual = head;
     for (size_t i = 0; i < index; i++) {
-        atual = atual->prox;
+        atual = atual->next;
     }
     return atual->value;
 }
@@ -215,19 +215,19 @@ const T& LinkedList<T>::operator[](size_t index) const {
     }
     Node* atual = head;
     for (size_t i = 0; i < index; i++) {
-        atual = atual->prox;
+        atual = atual->next;
     }
     return atual->value;
 }
 
 // CONSTRUTOR DA CLASSE Node
 template <class T>
-LinkedList<T>::Node::Node(const T &value) : value(value), prox(nullptr) {}
+LinkedList<T>::Node::Node(const T &value) : value(value), next(nullptr) {}
 
 // DESTRUTOR DA CLASSE Node
 template <class T>
 LinkedList<T>::Node::~Node() {
-    prox = nullptr;
+    next = nullptr;
 }
 
 // CONSTRUTOR DE CÓPIA DA CLASSE LinkedList
@@ -240,13 +240,13 @@ LinkedList<T>::LinkedList(const LinkedList &list) : head(nullptr), _size(0) {
 
     head = new Node(atual->value);
     tail = head;
-    atual = atual->prox;
+    atual = atual->next;
     _size++;
 
     while (atual != nullptr) {
-        tail->prox = new Node(atual->value);
-        tail = tail->prox;
-        atual = atual->prox;
+        tail->next = new Node(atual->value);
+        tail = tail->next;
+        atual = atual->next;
         _size++;
     }
 }
