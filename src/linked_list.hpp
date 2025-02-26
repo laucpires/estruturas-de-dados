@@ -80,14 +80,26 @@ void LinkedList<T>::push_front(const T& value) {
 // COPIA OS ELEMENTOS DE OUTRA LISTA ENCADEADA PARA ESTA LISTA LinkedList
 template <class T>
 LinkedList<T>& LinkedList<T>::operator=(const LinkedList &list) {
-    if (this != &list) {
-        clear(); // Limpa a lista atual
+    if(this != &list){
+        clear();
+
+        if(list.head == nullptr) {
+            return *this;
+        }
 
         Node* atual = list.head;
-        while (atual != nullptr) {
-            push_back(atual->value); // Adiciona os elementos diretamente
+        Node* novoHead = new Node(atual->value);
+        Node* tail = novoHead;
+        atual = atual->next;
+
+        while(atual != nullptr){
+            tail->next = new Node(atual->value);
+            tail = tail->next;
             atual = atual->next;
         }
+
+        head = novoHead;
+        _size = list._size;
     }
     return *this;
 }
