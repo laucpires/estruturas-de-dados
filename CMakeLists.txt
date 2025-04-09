@@ -14,6 +14,7 @@ add_executable(2_point exercise/2_point.cpp src/point.cpp)
 add_executable(3_hours exercise/3_hours.cpp src/hours.cpp)
 add_executable(4_hours exercise/4_hours.cpp src/hours.cpp)
 add_executable(5_pair exercise/5_pair.cpp)
+add_executable(trabalho-0804 src/trabalho-0804.cpp)
 
 add_executable(vector_list exercise/vector_list.cpp)
 add_executable(linked_list exercise/linked_list.cpp)
